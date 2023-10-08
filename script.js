@@ -27,22 +27,24 @@ function playGame(playerSelection){
 }
 
 function userInput(){
-    let playerSelection = prompt("rock, paper or scissors?");
-    playerSelection = playerSelection.toLowerCase();
-    let isChoice = false;
-
-    for(let i = 0; i < choice.length; i++) {
-        if(playerSelection === choice[i]){
-            isChoice = true;
+    console.log("Work pls");
+    while(1){
+        let playerSelection = prompt("rock, paper or scissors?");
+        playerSelection = playerSelection.toLowerCase();
+        let isChoice = false;
+        for(let i = 0; i < choice.length; i++) {
+            if(playerSelection === choice[i]){
+                isChoice = true;
+                break;
+            }
+        }
+        if(isChoice === false){
+            console.log("Invalid input, please try again");
+            }
+        }else if(isChoice === true){
             break;
         }
-    }
-    if(isChoice === false){
-        console.log("Invalid input, please try again");
-        userInput();
-    }
-
-    return playerSelection;
+        return playerSelection;
 }
 
 
@@ -50,6 +52,7 @@ function userInput(){
 function playRound(){
     const playerSelection = userInput();
     const result = playGame(playerSelection);
+    userInput();
     console.log(result);
 }
 function game(){
