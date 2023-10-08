@@ -1,12 +1,18 @@
 let choice = ["rock", "paper", "scissors"]
-let number = Math.floor(Math.random() * 3);
+
+game();
+
+function getRandomNumber(){
+    const number = Math.floor(Math.random() * 3);
+    return number;
+}
 
 function getComputerChoice(number, choice){
     let computer = choice[number];
     return computer;
 }
 
-function playGame(playerSelection){
+function playGame(playerSelection, number, choice){
     const computerSelection = getComputerChoice(number, choice);
     if(playerSelection === computerSelection){
         return "You tie!";
@@ -23,42 +29,46 @@ function playGame(playerSelection){
         }else if(playerSelection === "scissors"){
             return "You win! Scissors beats paper!";
         }
+    }else if(computerSelection === "rock"){
+        if(playerSelection === "paper"){
+            return "You win! Paper beats rock!";
+        }else if(playerSelection === "scissors"){
+            return "You lose! Rocks beats scissors!";
+        }
     }
 }
 
 function userInput(){
     while(true){
-        let playerSelection = prompt("rock, paper or scissors?");
-        playerSelection = playerSelection.toLowerCase();
-        let isChoice = false;
+        let playerSelection = null;
+
+        while(playerSelection === null){
+            playerSelection = prompt("rock, paper or scissors?");
+            playerSelection = playerSelection.toLowerCase();
+        }
         for(let i = 0; i < choice.length; i++) {
             if(playerSelection === choice[i]){
+                console.log(playerSelection);
                 return playerSelection;
             }
         }
-        if(isChoice === false){
-            console.log("Invalid input, please try again");
-            }
-            else if(isChoice === true){
-                break;
-            }
-        }
-        return playerSelection;
-}
-
-
-
-function playRound(){
-    const selection = userInput();
-    const result = playGame(selection);
-    console.log(result);
-}
-function game(){
-    for(let i = 0; i < 5; i++){
-        playRound();
+        console.log("Invalid input, please try again");
     }
 }
 
 
-game();
+function playRound(number){
+    const selection = userInput();
+    const result = playGame(selection, number, choice);
+    console.log(result);
+}
+function game(){
+    
+    for(let i = 0; i < 5; i++){
+        const number = getRandomNumber();
+        playRound(number);
+    }
+}
+
+
 
