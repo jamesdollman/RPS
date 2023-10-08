@@ -1,22 +1,23 @@
 let choice = ["rock", "paper", "scissors"]
-
+let number = Math.floor(Math.random() * 3);
 
 function getComputerChoice(number, choice){
     let computer = choice[number];
     return computer;
 }
 
-function playGame(playerSelection, computer){
-    if(playerSelection === computer){
+function playGame(playerSelection){
+    const computerSelection = getComputerChoice(number, choice);
+    if(playerSelection === computerSelection){
         return "You tie!";
     }
-    if(computer === "scissors"){
+    if(computerSelection === "scissors"){
         if(playerSelection === "rock"){
             return "You win! Rock beats scissors!";
         }else if(playerSelection === "paper"){
             return "You lose! Scissors beats paper!";
         }
-    }else if(computer === "paper"){
+    }else if(computerSelection === "paper"){
         if(playerSelection === "rock"){
             return "You lose! Paper beats rock";
         }else if(playerSelection === "scissors"){
@@ -46,17 +47,17 @@ function userInput(){
 
 
 
-function playRound(number){
+function playRound(){
     const playerSelection = userInput();
-    const computerSelection = getComputerChoice(number, choice);
-    const result = playGame(playerSelection, computerSelection, number);
+    const result = playGame(playerSelection);
     console.log(result);
 }
 function game(){
-    let number = Math.floor(Math.random() * 3);
     for(let i = 0; i < 5; i++){
         playRound();
     }
 }
 
+
 game();
+
