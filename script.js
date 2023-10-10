@@ -125,6 +125,7 @@ function eventListeners() {
         playerCounter = 0;
         computerCounter = 0;
         showResults();
+        winner.textContent="";
     })
     
 
@@ -143,8 +144,8 @@ function determineWinner() {
         }else {
             rpsWinner = 'The Computer wins!'
         }
+        winner.textContent = rpsWinner;
     }
-    winner.textContent = rpsWinner;
 }
 
 
