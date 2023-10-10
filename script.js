@@ -1,124 +1,80 @@
-const container = document.querySelector('#container');
-
-const red = document.createElement('p');
-red.classList.add('red');
-red.textContent = "Hey I'm red!";
-container.appendChild(red);
-
-const blue = document.createElement('h3');
-blue.classList.add('blue');
-blue.textContent = "I'm a blue h3!";
-container.appendChild(blue);
-
-const newDiv = document.createElement('div');
-newDiv.classList.add('newDiv');
-const another_h1 = document.createElement('h1');
-const another_p = document.createElement('p');
-another_h1.classList.add('another_h1');
-another_p.classList.add('another_p');
-another_h1.textContent = "I'm in a div";
-another_p.textContent = "ME TOO";
-newDiv.appendChild(another_h1);
-newDiv.appendChild(another_p);
-container.appendChild(newDiv);
-
-
-
-
-const gameContainer = document.createElement('div');
-gameContainer.classList.add('gameContainer');
-const result = document.createElement('h1');
-result.classList.add('resultHeader');
-result.textContent = "you won this many times: " + playerCounter;
-gameContainer.appendChild(result);
-container.appendChild(gameContainer);
-
-
 let choice = ["rock", "paper", "scissors"]
 let playerCounter = 0;
 let computerCounter = 0;
 let tieCounter = 0;
 
-// game();
+game();
 
 function getRandomNumber(){
     const number = Math.floor(Math.random() * 3);
     return number;
 }
 
-function getComputerChoice(number, choice){
+function getComputerChoice(number){
     let computer = choice[number];
     return computer;
 }
 
-function playGame(playerSelection, number, choice){
+function playGame(userChoice, number, choice){
     const computerSelection = getComputerChoice(number, choice);
-    if(playerSelection === computerSelection){
+    let result = '';
+
+    if(userChoice === computerSelection){
         tieCounter++;
-        return "You tie!";
+        result = "You tie!";
+    }else if (
+        (userChoice === "rock" && computerSelection === "scissors") ||
+        (userChoice === "paper" && computerSelection === "rock") ||
+        (userChoice === "scissors" && computerSelection === "paper")
+    ) {
+        playerCounter++;
+        result = `You win! ${userChoice} beats ${computerSelection}!`;
+    }else {
+        computerCounter++;
+        result = `You lose! ${computerSelection} beats ${userChoice}!`;
     }
-    if(computerSelection === "scissors"){
-        if(playerSelection === "rock"){
-            playerCounter++;
-            return "You win! Rock beats scissors!";
-        }else if(playerSelection === "paper"){
-            computerCounter++;
-            return "You lose! Scissors beats paper!";
-        }
-    }else if(computerSelection === "paper"){
-        if(playerSelection === "rock"){
-            computerCounter++;
-            return "You lose! Paper beats rock";
-        }else if(playerSelection === "scissors"){
-            playerCounter++;
-            return "You win! Scissors beats paper!";
-        }
-    }else if(computerSelection === "rock"){
-        if(playerSelection === "paper"){
-            playerCounter++;
-            return "You win! Paper beats rock!";
-        }else if(playerSelection === "scissors"){
-            computerCounter++;
-            return "You lose! Rocks beats scissors!";
-        }
-    }
-}
-
-function userInput(){
-    while(true){
-        let playerSelection = null;
-
-        while(playerSelection === null){
-            playerSelection = prompt("rock, paper or scissors?");
-            playerSelection = playerSelection.toLowerCase();
-        }
-        for(let i = 0; i < choice.length; i++) {
-            if(playerSelection === choice[i]){
-                return playerSelection;
-            }
-        }
-        console.log("Invalid input, please try again");
-    }
-}
-
-
-function playRound(number){
-    const selection = userInput();
-    const result = playGame(selection, number, choice);
     console.log(result);
+    showResults();
 }
+
+
 function game(){
-    for(let i = 0; i < 5; i++){
-        const number = getRandomNumber();
-        playRound(number);
-    }
-    console.log("Game over!");
-    console.log("Your score: " + playerCounter);
-    console.log("Computer score: " + computerCounter);
-    console.log("Tie games: " + tieCounter);
+    createElements();
 }
 
+function createElements() {
+    const body = document.querySelector('body');
+    const rock = document.createElement('button');
+    const paper = document.createElement('button');
+    const scissors = document.createElement('button');
+    
+    //add text to buttons
+    rock.textContent = "Rock";
+    paper.textContent = "Paper";
+    scissors.textContent = "Scissors";
 
+    //append buttons to body
+    body.appendChild(rock);
+    body.appendChild(paper);
+    body.appendChild(scissors);
 
+    //event listeners 
+    rock.addEventListener('click', () => {
+        playGame('rock', getRandomNumber(), choice);
+        
+    })
+
+    paper.addEventListener('click', () => {
+        playGame('paper', getRandomNumber(), choice);
+    })
+
+    scissors.addEventListener('click', () => {
+        playGame('scissors', getRandomNumber(), choice);
+    })
+}
+
+function showResults() {
+    console.log(`Player: ${playerCounter}, Computer: ${computerCounter}, Tie: ${tieCounter}`);
+}
 
 
