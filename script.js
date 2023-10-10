@@ -4,7 +4,10 @@ let computerCounter = 0;
 let tieCounter = 0;
 let rock, paper, scissors;
 let gameCounter = 0;
-
+let rpsWinner;
+const winner = document.createElement('p');
+const scoreLabel = document.createElement('label');
+const restartButton = document.createElement('button');
 game();
 
 function getRandomNumber(){
@@ -18,7 +21,7 @@ function getComputerChoice(number){
 }
 
 function playGame(userChoice, number, choice){
-    if(gameCounter === 5 || gameCounter > 5){
+    if(gameCounter === 6 || gameCounter > 6){
         console.log("GAME OVER >:)")
     }else {
         const computerSelection = getComputerChoice(number, choice);
@@ -55,32 +58,47 @@ function createElements() {
     const body = document.querySelector('body');
 
     //Create HTML Elements
+    const buttonContainer = document.createElement('div');
     rock = document.createElement('button');
     paper = document.createElement('button');
     scissors = document.createElement('button');
     const resultsContainer = document.createElement('div');
-    const score = document.createElement('p');
-    const scoreLabel = document.createElement('label');
+    const restartContainer = document.createElement('div');
+    
 
-    //add text to buttons
+    //add text to elements
     rock.textContent = "Rock";
     paper.textContent = "Paper";
     scissors.textContent = "Scissors";
     scoreLabel.textContent = "Current score: ";
+    scoreLabel.textContent = `Player: ${playerCounter}, Computer: ${computerCounter}, Tie: ${tieCounter}`;
+    restartButton.textContent = "Restart Game"
 
+    //Set class names
+    resultsContainer.className="resultsContainer";
+    buttonContainer.className = "buttonContainer";
+    scoreLabel.className="scoreLabel";
+    winner.className="winner";
+    restartButton.className = "restartButton";
+    restartContainer.className = "restartContainer";
 
-    //append buttons to body
-    body.appendChild(rock);
-    body.appendChild(paper);
-    body.appendChild(scissors);
+    //append buttons to buttonContainer
+    buttonContainer.appendChild(rock);
+    buttonContainer.appendChild(paper);
+    buttonContainer.appendChild(scissors);
 
-    //append score, scoreLabel to resultsContainer
-    resultsContainer.appendChild(score);
+    //append score, scoreLabel, winner to resultsContainer
     resultsContainer.appendChild(scoreLabel);
+    resultsContainer.appendChild(winner);
 
-    //append resultsContainer to body
+    //append restartButton to restartContainer
+    restartContainer.appendChild(restartButton);
+
+    //append resultsContainer and buttonContainer to body
+    body.appendChild(buttonContainer);
     body.appendChild(resultsContainer);
-
+    body.appendChild(restartContainer);
+    
 }
 
 function eventListeners() {
@@ -100,12 +118,33 @@ function eventListeners() {
         gameCounter++;
         playGame('scissors', getRandomNumber(), choice);
     })
+
+    restartButton.addEventListener('click', () => {
+        gameCounter = 0;
+        tieCounter = 0;
+        playerCounter = 0;
+        computerCounter = 0;
+        showResults();
+    })
+    
+
 }
 
-function showResults() {
-    console.log(`Player: ${playerCounter}, Computer: ${computerCounter}, Tie: ${tieCounter}`);
-    console.log(`Games played: ${gameCounter}`);
+function showResults(winner) {
+    scoreLabel.textContent = `Player: ${playerCounter}, Computer: ${computerCounter}, Tie: ${tieCounter}`;
+    determineWinner();
+    
+}
 
+function determineWinner() {
+    if(gameCounter === 5){
+        if(playerCounter > computerCounter){
+            rpsWinner = 'You win!'
+        }else {
+            rpsWinner = 'The Computer wins!'
+        }
+    }
+    winner.textContent = rpsWinner;
 }
 
 
