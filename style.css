@@ -1,7 +1,33 @@
-.red {
-    color:red;
+body {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    height: 100vh; 
+    margin: 0; 
+    padding: 0; 
 }
 
-.blue {
-    color: blue;
+.buttonContainer {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:17px;
+}
+
+.buttonContainer button{
+    width:100px;
+    height:50px;
+}
+
+.resultsContainer {
+    margin-top:50px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+.restartContainer {
+    margin-bottom:75px;
 }
