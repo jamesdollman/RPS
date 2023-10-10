@@ -31,3 +31,7 @@ body {
 .restartContainer {
     margin-bottom:75px;
 }
+
+.winner {
+    height: 12px;
+}
