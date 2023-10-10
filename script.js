@@ -1,9 +1,45 @@
+const container = document.querySelector('#container');
+
+const red = document.createElement('p');
+red.classList.add('red');
+red.textContent = "Hey I'm red!";
+container.appendChild(red);
+
+const blue = document.createElement('h3');
+blue.classList.add('blue');
+blue.textContent = "I'm a blue h3!";
+container.appendChild(blue);
+
+const newDiv = document.createElement('div');
+newDiv.classList.add('newDiv');
+const another_h1 = document.createElement('h1');
+const another_p = document.createElement('p');
+another_h1.classList.add('another_h1');
+another_p.classList.add('another_p');
+another_h1.textContent = "I'm in a div";
+another_p.textContent = "ME TOO";
+newDiv.appendChild(another_h1);
+newDiv.appendChild(another_p);
+container.appendChild(newDiv);
+
+
+
+
+const gameContainer = document.createElement('div');
+gameContainer.classList.add('gameContainer');
+const result = document.createElement('h1');
+result.classList.add('resultHeader');
+result.textContent = "you won this many times: " + playerCounter;
+gameContainer.appendChild(result);
+container.appendChild(gameContainer);
+
+
 let choice = ["rock", "paper", "scissors"]
 let playerCounter = 0;
 let computerCounter = 0;
 let tieCounter = 0;
 
-game();
+// game();
 
 function getRandomNumber(){
     const number = Math.floor(Math.random() * 3);
@@ -81,6 +117,8 @@ function game(){
     console.log("Computer score: " + computerCounter);
     console.log("Tie games: " + tieCounter);
 }
+
+
 
 
 
